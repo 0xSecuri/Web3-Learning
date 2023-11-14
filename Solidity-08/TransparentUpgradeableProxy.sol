@@ -31,17 +31,12 @@ contract Proxy {
         _setAdmin(msg.sender);
     }
 
-    fallback() external payable {
-        _delegate(_getImplementation());
-    }
-
-    receive() external payable {
-        _delegate(_getImplementation());
-    }
-
-    function upgradeTo(address _implementation) external {
-        require(msg.sender == _getAdmin(), "Not authorized!");
-        _setImplementation(_implementation);
+    modifier ifAdmin() {
+        if (msg.sender == _getAdmin()) {
+            _;
+        } else {
+            _fallback();
+        }
     }
 
     function _delegate(address _implementation) private {
@@ -106,12 +101,29 @@ contract Proxy {
         StorageSlot.getAddressSlot(IMPLEMENTATION_SLOT).value = _implementation;
     }
 
-    function getAdmin() external view returns (address) {
+    function upgradeTo(address _implementation) external ifAdmin {
+        require(msg.sender == _getAdmin(), "Not authorized!");
+        _setImplementation(_implementation);
+    }
+
+    function getAdmin() external ifAdmin returns (address) {
         return _getAdmin();
     }
 
-    function getImplementation() external view returns (address) {
+    function getImplementation() external ifAdmin returns (address) {
         return _getImplementation();
+    }
+
+    function _fallback() private {
+        _delegate(_getImplementation());
+    }
+
+    fallback() external payable {
+        _fallback();
+    }
+
+    receive() external payable {
+        _fallback();
     }
 }
 
