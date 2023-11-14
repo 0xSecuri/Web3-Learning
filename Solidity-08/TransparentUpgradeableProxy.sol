@@ -101,6 +101,10 @@ contract Proxy {
         StorageSlot.getAddressSlot(IMPLEMENTATION_SLOT).value = _implementation;
     }
 
+    function changeAdmin(address _admin) external ifAdmin {
+        _setAdmin(_admin);
+    }
+
     function upgradeTo(address _implementation) external ifAdmin {
         require(msg.sender == _getAdmin(), "Not authorized!");
         _setImplementation(_implementation);
@@ -124,6 +128,54 @@ contract Proxy {
 
     receive() external payable {
         _fallback();
+    }
+}
+
+contract ProxyAdmin {
+    address public owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    modifier onlyOnwer() {
+        require(msg.sender == owner, "Not authorized");
+        _;
+    }
+
+    function getProxyAdmin(address proxy) external view returns (address) {
+        (bool ok, bytes memory res) = proxy.staticcall(
+            abi.encodeCall(Proxy.getAdmin, ())
+        );
+        require(ok, "call failed");
+
+        return abi.decode(res, (address));
+    }
+
+    function getProxyImplementation(
+        address proxy
+    ) external view returns (address) {
+        (bool ok, bytes memory res) = proxy.staticcall(
+            abi.encodeCall(Proxy.getImplementation, ())
+        );
+
+        require(ok, "call failed");
+
+        return abi.decode(res, (address));
+    }
+
+    function changeProxyAdmin(
+        address payable proxy,
+        address admin
+    ) external onlyOnwer {
+        Proxy(proxy).changeAdmin(admin);
+    }
+
+    function upgrade(
+        address payable proxy,
+        address implementation
+    ) external onlyOnwer {
+        Proxy(proxy).upgradeTo(implementation);
     }
 }
 
