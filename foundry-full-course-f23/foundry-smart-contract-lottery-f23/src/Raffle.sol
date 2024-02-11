@@ -40,16 +40,16 @@ contract Raffle is VRFConsumerBaseV2, AutomationCompatibleInterface {
     event WinnerPicked(address indexed winner);
 
     constructor(
-        uint256 entranceFee,
-        address coordinatorAddr,
-        bytes32 gasLane,
         uint64 subscriptionId,
+        bytes32 gasLane, // keyHash
+        uint256 interval,
+        uint256 entranceFee,
         uint32 callbackGasLimit,
-        uint256 interval
-    ) VRFConsumerBaseV2(coordinatorAddr) {
+        address vrfCoordinatorV2
+    ) VRFConsumerBaseV2(vrfCoordinatorV2) {
         i_entranceFee = entranceFee;
         s_raffleState = RaffleState.OPEN;
-        i_vrfCoordinator = VRFCoordinatorV2Interface(coordinatorAddr);
+        i_vrfCoordinator = VRFCoordinatorV2Interface(vrfCoordinatorV2);
         i_gasLane = gasLane;
         i_subscriptionId = subscriptionId;
         i_callbackGasLimit = callbackGasLimit;
