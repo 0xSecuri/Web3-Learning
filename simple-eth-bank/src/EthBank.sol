@@ -16,8 +16,8 @@ contract EthBank {
             revert EthBank__InsufficientBalance();
         }
 
-        uint256 amountToSend = balances[msg.sender] -= amount;
-        (bool success, ) = msg.sender.call{value: amountToSend}("");
+        balances[msg.sender] -= amount;
+        (bool success, ) = msg.sender.call{value: amount}("");
         require(success, "Fail while sending ETH");
     }
 

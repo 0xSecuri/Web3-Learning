@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>EthBank</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+
+  <body>
+    <header>
+      <h1>Welcome to EthBank</h1>
+    </header>
+    <section>
+      <button id="connectButton">Connect</button>
+      <button id="balanceButton">Get My Balance</button>
+      <div>
+        <label for="ethAmount">Amount to deposit in ETH</label>
+        <input id="ethAmount" placeholder="0.1" type="text" />
+        <button type="button" id="depositButton">Deposit</button>
+      </div>
+      <div>
+        <label for="amountToWithdraw">Amount for withdrawing</label>
+        <input id="amountToWithdraw" placeholder="0" type="text" />
+        <button type="button" id="withdrawButton">Withdraw</button>
+      </div>
+      <div id="balanceDisplay" class="display-box"></div>
+    </section>
+    <footer>
+      <p>&copy; 2024 EthBank Ltd. All rights reserved.</p>
+    </footer>
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
