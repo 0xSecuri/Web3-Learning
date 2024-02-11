@@ -19,3 +19,6 @@
 [submodule "foundry-full-course-f23/foundry-smart-contract-lottery-f23/lib/chainlink-brownie-contracts"]
 	path = foundry-full-course-f23/foundry-smart-contract-lottery-f23/lib/chainlink-brownie-contracts
 	url = https://github.com/smartcontractkit/chainlink-brownie-contracts
+[submodule "simple-eth-bank/lib/forge-std"]
+	path = simple-eth-bank/lib/forge-std
+	url = https://github.com/foundry-rs/forge-std
