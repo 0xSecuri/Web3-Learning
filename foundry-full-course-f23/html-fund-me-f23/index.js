@@ -5,10 +5,12 @@ const connectButton = document.getElementById("connectButton")
 const withdrawButton = document.getElementById("withdrawButton")
 const fundButton = document.getElementById("fundButton")
 const balanceButton = document.getElementById("balanceButton")
+const getFunderButton = document.getElementById("getFunderButton")
 connectButton.onclick = connect
 withdrawButton.onclick = withdraw
 fundButton.onclick = fund
 balanceButton.onclick = getBalance
+getFunderButton.onclick = getFunder
 
 async function connect() {
   if (typeof window.ethereum !== "undefined") {
@@ -71,6 +73,8 @@ async function getBalance() {
       let balance = await provider.getBalance(contractAddress)
       balance = balance / 1e18
       console.log(ethers.utils.formatEther(balance))
+      balanceDisplay.style.display = "block" // Show the balance display box
+      funderDisplay.style.display = "none"
       document.getElementById("balanceDisplay").innerText =
         "FundMe Balance is: " + balance + " ETH"
     } catch (error) {
@@ -78,6 +82,26 @@ async function getBalance() {
     }
   } else {
     balanceButton.innerHTML = "Please install MetaMask"
+  }
+}
+
+async function getFunder() {
+  const funderIndex = document.getElementById("funderIndex").value
+  if (typeof window.ethereum !== "undefined") {
+    const provider = new ethers.providers.Web3Provider(window.ethereum)
+    try {
+      const contract = new ethers.Contract(contractAddress, abi, provider)
+      const funder = await contract.getFunder(funderIndex)
+      console.log("Funder:", funder)
+      balanceDisplay.style.display = "none" // Hide the balance display box
+      funderDisplay.style.display = "block" // Show the funder display box
+      document.getElementById("funderDisplay").innerText =
+        "Funder at: " + funderIndex + " index is: " + funder
+    } catch (error) {
+      document.getElementById("funderDisplay").innerText = "Wrong index!"
+    }
+  } else {
+    console.error("Please install MetaMask")
   }
 }
 

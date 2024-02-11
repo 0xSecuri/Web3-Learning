@@ -79,3 +79,12 @@ section {
     width: 100%;
     box-sizing: border-box;
 }
+
+.display-box {
+  display: none; /* Initially hide the display boxes */
+  background: linear-gradient(to right, #f0f0f0, #ffffff, #f0f0f0); /* Gradient background */
+  padding: 10px; /* Padding around the content */
+  margin-top: 10px; /* Space between the display boxes */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Box shadow for depth */
+}
