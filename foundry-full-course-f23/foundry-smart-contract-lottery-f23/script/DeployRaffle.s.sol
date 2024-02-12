@@ -7,7 +7,7 @@ import {HelperConfig} from "./HelperConfig.s.sol";
 
 contract DeployRaffle is Script {
     function run() external returns (Raffle, HelperConfig) {
-        HelperConfig helperConfig = new HelperConfig(); // This comes with our mocks!
+        HelperConfig helperConfig = new HelperConfig();
         (
             uint64 subscriptionId,
             bytes32 gasLane,
