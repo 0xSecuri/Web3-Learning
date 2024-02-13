@@ -1,86 +1,42 @@
-# html-fund-me-f23
+# EthBank Front-End
 
-*[⭐️ (2:37:02) | Lesson 8: HTML Fund Me](https://www.youtube.com/watch?v=sas02qSFZ74&t=9422s)*
+This repository contains the HTML and CSS files for the EthBank front-end.
 
-This is a minimalistic example what you can find in the [metamask docs](https://docs.metamask.io/guide/create-dapp.html#basic-action-part-1).
+## Usage
 
-# Requirements
+To use the EthBank front-end, follow these steps:
 
-- [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
-  - You'll know you've installed it right if you can run:
-    - `git --version`
-- [Metamask](https://metamask.io/)
-  - This is a browser extension that lets you interact with the blockchain.
+1. Open the HTML and CSS files in VSCode
+1. Install the Live Server extension for VSCode
+1. Click on the "Go Live" button in the bottom right corner of the VSCode window
+1. Open your web browser and go to the address below to access the EthBank front-end:
 
-### Optional Gitpod
-
-If you can't or don't want to run and install locally, you can work with this repo in Gitpod. If you do this, you can skip the `clone this repo` part.
-
-[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#github.com/PatrickAlphaC/html-fund-me-f23)
-
-# Quickstart
-
-1. Clone the repo
-
-```
-git clone https://github.com/Cyfrin/html-fund-me-f23
-cd html-fund-me-f23
+```bash
+http://127.0.0.1:5500/simple-eth-bank-frontend/
 ```
 
-2. Run the file.
+## Configuration
 
-You can usually just double click the file to "run it in the browser". Or you can right click the file in your VSCode and run "open with live server".
+Before using the EthBank front-end, you need to configure your wallet to connect to the Anvil RPC URL. Anvil is a tool that spins up a local blockchain for development purposes.
 
-And you should see a small button that says "connect".
+Follow these steps to configure your wallet:
 
-![Connect](connect.png)
+1. Run Anvil locally by using the following command in your terminal
 
-Hit it, and you should see metamask pop up.
-
-# Execute a transaction
-
-If you want to execute a transaction follow this:
-
-Make sure you have the following installed:
-
-1. You'll need to open up a second terminal and run:
-
-```
-git clone https://github.com/Cyfrin/foundry-fund-me-f23
-cd foundry-fund-me-f23
-make build
-make anvil
+```bash
+anvil
 ```
 
-Then, in a second terminal
-```
-make deploy
-```
+2. Once Anvil is running, it will generate a local blockchain environment. Accounts will pop up on the terminal.
 
-This will deploy a sample contract and start a local hardhat blockchain.
+3. Import an account into your wallet by using its private key. You can find the private key of the account displayed in the terminal after running Anvil.
 
-2. Update your `constants.js` with the new contract address.
+4. Configure your wallet to use the Anvil RPC URL as the network. This URL should be provided by Anvil when it is running locally.
 
-In your `constants.js` file, update the variable `contractAddress` with the address of the deployed "FundMe" contract. You'll see it near the top of the hardhat output.
+5. Switch your wallet to use the Anvil network.
 
-3. Connect your [metamask](https://metamask.io/) to your local hardhat blockchain.
+6. You should now be able to interact with the EthBank front-end using your configured wallet.
 
-> **PLEASE USE A METAMASK ACCOUNT THAT ISNT ASSOCIATED WITH ANY REAL MONEY.**
-> I usually use a few different browser profiles to separate my metamasks easily.
+## Important Note
 
-In the output of the above command, take one of the private key accounts and [import it into your metamask.](https://metamask.zendesk.com/hc/en-us/articles/360015489331-How-to-import-an-Account)
-
-Additionally, add your localhost with chainid 31337 to your metamask.
-
-1. Refresh the front end, input an amount in the text box, and hit `fund` button after connecting
-
-# Thank you!
-
-If you appreciated this, feel free to follow me or donate!
-
-ETH/Arbitrum/Optimism/Polygon/etc Address: 0x9680201d9c93d65a3603d2088d125e955c73BD65
-
-[![Patrick Collins Twitter](https://img.shields.io/badge/Twitter-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white)](https://twitter.com/PatrickAlphaC)
-[![Patrick Collins YouTube](https://img.shields.io/badge/YouTube-FF0000?style=for-the-badge&logo=youtube&logoColor=white)](https://www.youtube.com/channel/UCn-3f8tw_E1jZvhuHatROwA)
-[![Patrick Collins Linkedin](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/patrickalphac/)
-[![Patrick Collins Medium](https://img.shields.io/badge/Medium-000000?style=for-the-badge&logo=medium&logoColor=white)](https://medium.com/@patrick.collins_58673/)
+- The EthBank front-end is intended for demonstration and testing purposes only. It may not have full functionality or security features implemented.

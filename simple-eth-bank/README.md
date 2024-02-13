@@ -1,66 +1,30 @@
-## Foundry
+# EthBank Smart Contract
 
-**Foundry is a blazing fast, portable and modular toolkit for Ethereum application development written in Rust.**
+This is a simple Ethereum smart contract called EthBank that acts as a basic bank for handling deposits and withdrawals of Ether.
 
-Foundry consists of:
+## Contract Details
 
--   **Forge**: Ethereum testing framework (like Truffle, Hardhat and DappTools).
--   **Cast**: Swiss army knife for interacting with EVM smart contracts, sending transactions and getting chain data.
--   **Anvil**: Local Ethereum node, akin to Ganache, Hardhat Network.
--   **Chisel**: Fast, utilitarian, and verbose solidity REPL.
+- **License**: MIT
+- **Solidity Version**: ^0.8.17
 
-## Documentation
+## Contract Features
 
-https://book.getfoundry.sh/
+- Allows users to deposit Ether into their account.
+- Allows users to withdraw Ether from their account, provided they have sufficient balance.
+- Handles insufficient balance errors.
+
+## Deployment
+
+Deploy the EthBank contract to your local Anvil node using the following command:
+
+```bash
+make DeployEthBank
+```
 
 ## Usage
 
-### Build
+Interact with the deployed contract using the following options:
 
-```shell
-$ forge build
-```
+- Using [cast](https://book.getfoundry.sh/cast/#:~:text=Cast%20is%20Foundry's%20command%2Dline,all%20from%20your%20command%2Dline!)
 
-### Test
-
-```shell
-$ forge test
-```
-
-### Format
-
-```shell
-$ forge fmt
-```
-
-### Gas Snapshots
-
-```shell
-$ forge snapshot
-```
-
-### Anvil
-
-```shell
-$ anvil
-```
-
-### Deploy
-
-```shell
-$ forge script script/Counter.s.sol:CounterScript --rpc-url <your_rpc_url> --private-key <your_private_key>
-```
-
-### Cast
-
-```shell
-$ cast <subcommand>
-```
-
-### Help
-
-```shell
-$ forge --help
-$ anvil --help
-$ cast --help
-```
+- Using Front-End developed for this contrac: refer to [the front-end README.md](https://github.com/0xSecuri/Web3-Learning/blob/main/simple-eth-bank-frontend/README.md) for instructions.
