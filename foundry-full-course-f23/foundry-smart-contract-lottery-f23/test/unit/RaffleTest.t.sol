@@ -33,30 +33,63 @@ contract RaffleTest is Test {
             automationUpdateInterval,
             raffleEntranceFee,
             callbackGasLimit,
-            vrfCoordinatorV2, // link
-            // deployerKey
+            vrfCoordinatorV2, // link // deployerKey
+            ,
 
         ) = helperConfig.activeNetworkConfig();
     }
+
+    /////////////////////////
+    //raffleInitializaiton //
+    /////////////////////////
 
     function testRaffleInitializesInOpenState() public view {
         assert(raffle.getRaffleState() == Raffle.RaffleState.OPEN);
     }
 
+    function testConstructorSetsAllVariablesCorrectly() public view {
+        assert(raffle.getRaffleState() == Raffle.RaffleState.OPEN);
+        // TODO add test for subId
+
+        assert(raffle.getGasLane() == gasLane);
+        assert(raffle.getInterval() == automationUpdateInterval);
+        assert(raffle.getEntranceFee() == raffleEntranceFee);
+        assert(raffle.getCallbackGasLimit() == callbackGasLimit);
+        assert(raffle.getVrfCoordinatorAddr() == vrfCoordinatorV2);
+    }
+
+    /////////////////////////
+    // enterRaffle         //
+    /////////////////////////
     function testEnterRaffleShouldRevertWhenYouDontPayEnough() public {
         vm.prank(PLAYER);
         vm.expectRevert(Raffle.Raffle__NotEnoughEth.selector);
         raffle.enterRaffle();
     }
 
-    function testEnterRaffleShouldRevertIfRaffleIsNotOpen() public {
-        // TODO
-    }
-
-    function testRaffleRecordsPlayerWhenTheyEnter() public {
+    modifier enterRaffleWithPlayer() {
         vm.prank(PLAYER);
         raffle.enterRaffle{value: raffleEntranceFee}();
+        _;
+    }
 
+    function testEnterRaffleShouldRevertIfRaffleIsNotOpen()
+        public
+        enterRaffleWithPlayer
+    {
+        vm.warp(block.timestamp + automationUpdateInterval + 1);
+        vm.roll(block.number + 1);
+        raffle.performUpkeep("");
+
+        vm.expectRevert(Raffle.Raffle__NotOpen.selector);
+        vm.prank(PLAYER);
+        raffle.enterRaffle{value: raffleEntranceFee}();
+    }
+
+    function testRaffleRecordsPlayerWhenTheyEnter()
+        public
+        enterRaffleWithPlayer
+    {
         address recordedPlayer = raffle.getPlayer(0);
         assert(recordedPlayer == PLAYER);
     }
